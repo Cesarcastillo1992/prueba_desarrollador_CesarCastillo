@@ -13,7 +13,7 @@ $(document).ready(function(){
             },
             function(data,status){
                 usuarios();
-            alert("Data: " + data + "\nStatus: " + status);
+                alert("El usuario se ha registrado de manera correcta");
             });
         }
         else {
@@ -28,37 +28,35 @@ $(document).ready(function(){
         let nombre=$(this).attr("id");
         eliminarusuario($(`.${nombre}`).val());
         console.log($(`.${nombre}`).val());
-      });
+    });
     $(document).on("click", ".eliminarc", function() {
         let nombre=$(this).attr("id");
         eliminarcontacto($(`.${nombre}`).val());
         console.log($(`.${nombre}`).val());
-      });
+        
+    });
     $(document).on("click", ".actualizar", function() {
         let nombre=$(this).attr("id");
         buscarusuario($(`.${nombre}`).val());
-        // actualizarusuario($(`.${nombre}`).val());
         console.log($(`.${nombre}`).val());
-      });
+        
+    });
     $(document).on("click", ".actualizarc", function() {
         let nombre=$(this).attr("id");
         buscarcontacto($(`.${nombre}`).val());
-        // actualizarusuario($(`.${nombre}`).val());
         console.log($(`.${nombre}`).val());
-      });
+    });
     $(document).on("click", "#btnguardarc", function() {
         let nombre=$(this).attr("id");
         crearcontacto();
-        // actualizarusuario($(`.${nombre}`).val());
-        // console.log($(`.${nombre}`).val());
-      });
+    });
     $(document).on("click", ".agregar", function() {
         let nombre=$(this).attr("id");
         console.log(nombre);
         $("#Idrelacion").val($(`.${nombre}`).val());
         contactos($(`.${nombre}`).val());
         console.log($(`.${nombre}`).val());
-      });
+    });
     
     $(document).on("click", "#btnactualizar", function(e) {
         
@@ -74,8 +72,8 @@ $(document).ready(function(){
         else {
             alert("Todos los campos son obligatorios");
         
-        }
-      });
+    }
+    });
     
     $(document).on("click", "#btnactualizarc", function(e) {
         
@@ -94,17 +92,16 @@ $(document).ready(function(){
             console.log($(`#contactobuscar`).val());
         
         }
-      });
+    });
     
-  });
-  function usuarios(){
-    $.get("./php/usuarios.php", function(data, status){
-        console.log(jQuery.parseJSON(data));
-        let index=0;
-        let contenido="";
-        $.each(jQuery.parseJSON(data), function (key, elem) { 
+    });
+    function usuarios(){
+        $.get("./php/usuarios.php", function(data, status){
+            console.log(jQuery.parseJSON(data));
+            let index=0;
+            let contenido="";
+            $.each(jQuery.parseJSON(data), function (key, elem) { 
             index ++;
-            
             
             contenido +=`<tr>
             <th scope="row">${index}</th>
@@ -116,16 +113,15 @@ $(document).ready(function(){
             <td><input class="Actualizar${index}" type="hidden" value="${elem.Id_usuario}"><button type="button" class="btn btn-warning actualizar" id="Actualizar${index}"><i class="icon-pencil"></i></button></td>
             <td><input class="eliminar_u${index}" type="hidden" value="${elem.Id_usuario}"><button type="button" class="btn btn-danger eliminar" id="eliminar_u${index}"><i class="icon-trash"></i></button></td>
             <td><input class="agregar${index}" type="hidden" value="${elem.Id_usuario}"><button type="button" class="btn btn-success agregar" id="agregar${index}"><i class="icon-user"></i></button></td>
-        
             </tr>`
-          });
-          $("#usuarios").empty();
-          console.log (contenido);
+        });
+        $("#usuarios").empty();
+        console.log (contenido);
         $("#usuarios").append(contenido);
         
-      });
+    });
 
-  }
+    }
 
 function eliminarusuario(id){
 
@@ -135,7 +131,7 @@ function eliminarusuario(id){
             },
             function(data,status){
                 usuarios();
-            alert("Data: " + data + "\nStatus: " + status);
+                alert("El usuario fue eliminado");
             });
 }
 function actualizarusuario(id){
@@ -151,7 +147,7 @@ function actualizarusuario(id){
                 Id: $("#usuariobuscar").val()
             },
             function(data,status){
-                alert("Data: " + data + "\nStatus: " + status);
+                alert("El usuario se ha modificado");
                 usuarios();
             
             });
@@ -175,7 +171,7 @@ function buscarusuario(id){
             
             });
     
-}
+    }
 function crearcontacto(){
     if($("#Idrelacion").val()=="") {
         alert("No se ha seleccionado ningun usuario para añadir contacto");
@@ -193,8 +189,7 @@ function crearcontacto(){
         },
         function(data,status){
             contactos($("#Idrelacion").val());
-            
-        alert("Data: " + data + "\nStatus: " + status);
+            alert("Se registro un nuevo contacto a este usuario");
         });
     }
     else {
@@ -214,8 +209,7 @@ function contactos(id){
         let contenido="";
         $.each(jQuery.parseJSON(data), function (key, elem) { 
             index ++;
-            
-            
+                       
             contenido +=`<tr>
             <th scope="row">${index}</th>
             <td>${elem.Nombres}</td>
@@ -224,21 +218,16 @@ function contactos(id){
             <td>${elem.Parentesco}</td>
             <td><input class="Actualizarc${index}" type="hidden" value="${elem.Id_contacto}"><button type="button" class="btn btn-warning actualizarc" id="Actualizarc${index}"><i class="icon-pencil"></i></button></td>
             <td><input class="eliminarc_u${index}" type="hidden" value="${elem.Id_contacto}"><button type="button" class="btn btn-danger eliminarc" id="eliminarc_u${index}"><i class="icon-trash"></i></button></td>
-            
-        
             </tr>`
-          });
-          $("#contactos").empty();
-          console.log (contenido);
+        });
+        $("#contactos").empty();
+        console.log (contenido);
         $("#contactos").append(contenido);
             
-        alert("Data: " + data + "\nStatus: " + status);
+        alert("En la parte inferior encontrara los contactos asociados a este usuario");
         });
-        
-        
-
-  }
-  function eliminarcontacto(id){
+    }
+function eliminarcontacto(id){
 
     $.post("./php/eliminarcontacto.php",
             {
@@ -246,7 +235,7 @@ function contactos(id){
             },
             function(data,status){
                 contactos($("#Idrelacion").val());
-            alert("Data: " + data + "\nStatus: " + status);
+                alert("Se elimino este contacto de marena correcta");
             });
 }
 function buscarcontacto(id){
@@ -280,7 +269,7 @@ function actualizarcontacto(id){
             },
             function(data,status){
                 
-                alert("Data: " + data + "\nStatus: " + status);
+                alert("se realizo una modificacion en este contacto");
                 contactos($(`#Idrelacion`).val());
             
             });
